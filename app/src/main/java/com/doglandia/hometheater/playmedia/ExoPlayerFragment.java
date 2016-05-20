@@ -132,7 +132,7 @@ public class ExoPlayerFragment extends Fragment implements MediaPlayerFragment, 
 
     private void preparePlayer(boolean playWhenReady) {
         Context context = getActivity();
-        String userAgent = Util.getUserAgent(context, "MediaLoader");
+        String userAgent = Util.getUserAgent(context, "HomeTheaterTV");
         DemoPlayer.RendererBuilder rendererBuilder = new ExtractorRendererBuilder(context, userAgent, videoUri);
         if(player != null) {
             player.release();

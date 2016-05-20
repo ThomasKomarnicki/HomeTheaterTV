@@ -6,7 +6,7 @@ import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 
 import com.bumptech.glide.Glide;
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 
 /**
  * Created by tdk10 on 2/21/2016.
@@ -54,7 +54,7 @@ public class Resource implements Parcelable{
         this.thumbnailPath = thumbnailPath;
 
         if(viewHolder != null){
-            MediaLoaderApplication application = (MediaLoaderApplication) viewHolder.view.getContext().getApplicationContext();
+            HomeTheaterApplication application = (HomeTheaterApplication) viewHolder.view.getContext().getApplicationContext();
             String thumbnailUrl = application.getResourceServer().getThumbnailUrl(this);
             setViewHolderImage(thumbnailUrl);
         }

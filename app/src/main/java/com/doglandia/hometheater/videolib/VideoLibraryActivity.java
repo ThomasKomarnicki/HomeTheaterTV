@@ -3,7 +3,7 @@ package com.doglandia.hometheater.videolib;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.event.ResourceServerConnectFailed;
 import com.doglandia.hometheater.event.ResourceServerConnected;
@@ -42,9 +42,9 @@ public class VideoLibraryActivity extends Activity {
 //        getFragmentManager().beginTransaction().add(R.id.video_lib_content,reconnectingFragment).commit();
 
 
-        MediaLoaderApplication.getBus().register(this);
+        HomeTheaterApplication.getBus().register(this);
 
-        ResourceServer server = ((MediaLoaderApplication) getApplication()).getResourceServer();
+        ResourceServer server = ((HomeTheaterApplication) getApplication()).getResourceServer();
         if(!server.isConnected()) {
             onResourceServerReconnectFailed(new ResourceServerConnectFailed());
         }else{
@@ -53,7 +53,7 @@ public class VideoLibraryActivity extends Activity {
     }
 
     public void getResourceData() {
-        ResourceServer server = ((MediaLoaderApplication) getApplication()).getResourceServer();
+        ResourceServer server = ((HomeTheaterApplication) getApplication()).getResourceServer();
         server.getResourceGroups().subscribe(new Action1<ResourcesResponse>() {
             @Override
             public void call(ResourcesResponse resourcesResponse) {
@@ -92,7 +92,7 @@ public class VideoLibraryActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MediaLoaderApplication.getBus().unregister(this);
+        HomeTheaterApplication.getBus().unregister(this);
     }
 
     @Subscribe

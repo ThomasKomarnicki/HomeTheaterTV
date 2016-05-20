@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.event.ResourceServerConnectFailed;
 import com.doglandia.hometheater.event.ResourceServerConnected;
@@ -94,7 +94,7 @@ public class ConnectingToPcFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MediaLoaderApplication.getBus().register(this);
+        HomeTheaterApplication.getBus().register(this);
 
         startClientDiscovery();
 
@@ -116,14 +116,14 @@ public class ConnectingToPcFragment extends Fragment {
         };
         countDownTimer.start();
 
-        ((MediaLoaderApplication) getActivity().getApplication()).getResourceServer().startClientDiscovery();
+        ((HomeTheaterApplication) getActivity().getApplication()).getResourceServer().startClientDiscovery();
     }
 
     @Subscribe
     public void onResourceServerConnected(ResourceServerConnected resourceServerConnected){
 
         if(getActivity() != null) { //
-            ResourceServer server = ((MediaLoaderApplication) getActivity().getApplication()).getResourceServer();
+            ResourceServer server = ((HomeTheaterApplication) getActivity().getApplication()).getResourceServer();
             server.getResourceGroups().subscribe(new Action1<ResourcesResponse>() {
                 @Override
                 public void call(ResourcesResponse resourcesResponse) {

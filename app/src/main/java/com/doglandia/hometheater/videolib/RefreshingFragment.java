@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.model.ResourcesResponse;
 import com.doglandia.hometheater.resourceserver.ResourceServer;
@@ -38,7 +38,7 @@ public class RefreshingFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        ResourceServer server = ((MediaLoaderApplication) getActivity().getApplication()).getResourceServer();
+        ResourceServer server = ((HomeTheaterApplication) getActivity().getApplication()).getResourceServer();
 
         server.getServerInstance().getResourceGroups()
         .delay(1500, TimeUnit.MILLISECONDS)

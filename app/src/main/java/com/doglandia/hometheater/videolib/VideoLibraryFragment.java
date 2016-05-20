@@ -20,7 +20,7 @@ import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.event.ResourceServerConnectFailed;
 import com.doglandia.hometheater.model.Resource;
@@ -60,9 +60,9 @@ public class VideoLibraryFragment extends BrowseFragment {
 
         setOnItemViewClickedListener(new ItemViewClickedListener());
 
-//        MediaLoaderApplication.getBus().register(this);
+//        HomeTheaterApplication.getBus().register(this);
 
-//        if(((MediaLoaderApplication) getActivity().getApplication()).getResourceServer().isConnected()){
+//        if(((HomeTheaterApplication) getActivity().getApplication()).getResourceServer().isConnected()){
 //            getResourceData();
 //        }
     }
@@ -126,7 +126,7 @@ public class VideoLibraryFragment extends BrowseFragment {
             if (item instanceof Resource) {
                 Resource resource = (Resource) item;
                 if (!resource.isNativeFormat()) {
-                    ResourceServer server = ((MediaLoaderApplication) getActivity().getApplication()).getResourceServer();
+                    ResourceServer server = ((HomeTheaterApplication) getActivity().getApplication()).getResourceServer();
                     String videoPath = server.getMediaUrl((Resource) item);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoPath));
 

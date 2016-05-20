@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "156302523413",
+    "firebase_url": "https://project-5388782854190513260.firebaseio.com",
+    "project_id": "project-5388782854190513260",
+    "storage_bucket": "project-5388782854190513260.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156302523413:android:dcc22cf258b88c14",
+        "android_client_info": {
+          "package_name": "com.doglandia.hometheater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156302523413-73kflaeo9tq8u5ki7cjqq3h5i0lnbv40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.doglandia.hometheater",
+            "certificate_hash": "D8C063D09D59893DE1748E223B5DF9268C147A89"
+          }
+        },
+        {
+          "client_id": "156302523413-kjetu4sk44mqrmo08ub7qmc97emonnm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoPUFME4dIMgYdEcSJvlOC73Q1fP35eho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156302523413-kjetu4sk44mqrmo08ub7qmc97emonnm6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.event.ResourceServerConnectFailed;
 import com.squareup.otto.Subscribe;
@@ -53,17 +53,17 @@ public class ReconnectingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MediaLoaderApplication.getBus().register(this);
+        HomeTheaterApplication.getBus().register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MediaLoaderApplication.getBus().unregister(this);
+        HomeTheaterApplication.getBus().unregister(this);
     }
 
     private void startClientDiscovery(){
-        ((MediaLoaderApplication) getActivity().getApplication()).getResourceServer().startClientDiscovery();
+        ((HomeTheaterApplication) getActivity().getApplication()).getResourceServer().startClientDiscovery();
     }
 
     @Subscribe

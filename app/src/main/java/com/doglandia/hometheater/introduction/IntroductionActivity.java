@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.introduction.fragment.ConnectingToPcFragment;
 import com.doglandia.hometheater.introduction.fragment.IntroductionFragment;
@@ -59,7 +59,7 @@ public class IntroductionActivity extends Activity {
     public void onBackPressed() {
         if(connecting) {
             // cancel connecting
-            ((MediaLoaderApplication) getApplication()).getResourceServer().cancelConnectingTasks();
+            ((HomeTheaterApplication) getApplication()).getResourceServer().cancelConnectingTasks();
         }
         super.onBackPressed();
     }

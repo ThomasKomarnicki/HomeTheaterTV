@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.media.session.MediaSessionCompat;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.R;
 import com.doglandia.hometheater.model.Resource;
 import com.doglandia.hometheater.resourceserver.ResourceServer;
@@ -38,7 +38,7 @@ public class PlayMediaActivity extends Activity{
 
         mediaPlayerFragment = (MediaPlayerFragment) getFragmentManager().findFragmentById(R.id.media_player_fragment);
 
-        server = ((MediaLoaderApplication) getApplication()).getResourceServer();
+        server = ((HomeTheaterApplication) getApplication()).getResourceServer();
         String videoPath = server.getMediaUrl(resource);
         mediaPlayerFragment.setVideo(Uri.parse(videoPath));
 

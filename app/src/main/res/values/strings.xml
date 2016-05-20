@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Home Theater</string>
 
-    <string name="app_introduction1">MediaLoader streams videos on your PC to your Android TV</string>
+    <string name="app_introduction1">Home Theater TV streams videos on your PC to your Android TV</string>
     <string name="app_intro_get_you_started">This short introduction will help guide you through the PC application set up</string>
     <string name="select_folders_on_your_computer">Select folders on your computer with your video content</string>
     <string name="select_folders_desc">Your \"My Videos\" and \"Downloads\" folder for example</string>

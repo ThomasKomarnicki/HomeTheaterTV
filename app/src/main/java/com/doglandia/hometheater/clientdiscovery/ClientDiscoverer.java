@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.text.format.Formatter;
 import android.util.Log;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.event.ResourceServerConnectFailed;
 import com.doglandia.hometheater.resourceserver.ResourceServer;
 
@@ -150,7 +150,7 @@ public class ClientDiscoverer {
 
             if(discoveryTasksRunning == 0 && !cancel){
                 // todo not connected
-                MediaLoaderApplication.getBus().post(new ResourceServerConnectFailed());
+                HomeTheaterApplication.getBus().post(new ResourceServerConnectFailed());
             }
         }
 
@@ -208,7 +208,7 @@ public class ClientDiscoverer {
                 listener.onHostFound(host);
             }else{
                 // notify that we failed to reconnect on last discovered host, try to rediscover host
-//                MediaLoaderApplication.getBus().post(new ResourceServerConnectFailed());
+//                HomeTheaterApplication.getBus().post(new ResourceServerConnectFailed());
                 startSubNetScan();
             }
         }

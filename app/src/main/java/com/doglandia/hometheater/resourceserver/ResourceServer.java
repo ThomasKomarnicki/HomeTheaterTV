@@ -2,7 +2,7 @@ package com.doglandia.hometheater.resourceserver;
 
 import android.content.Context;
 
-import com.doglandia.hometheater.MediaLoaderApplication;
+import com.doglandia.hometheater.HomeTheaterApplication;
 import com.doglandia.hometheater.clientdiscovery.ClientDiscoverer;
 import com.doglandia.hometheater.event.ResourceServerConnected;
 import com.doglandia.hometheater.model.Resource;
@@ -94,7 +94,7 @@ public class ResourceServer implements ServerInterface, ClientDiscoverer.OnHostF
         discoveredHost = host;
         createRestAdapter();
 
-        MediaLoaderApplication.getBus().post(new ResourceServerConnected());
+        HomeTheaterApplication.getBus().post(new ResourceServerConnected());
     }
 
     @Override
