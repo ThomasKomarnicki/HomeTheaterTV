@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+  <div class="row">
+
+    <ul class="faq-list">
+
+      {% for section in faq %} 
+        <h2 class="faq-title"> {{ section.title }}</h2>
+
+        {% for qa in section.items %}
+          <li class="faq-list-item">
+            {% if forloop.counter|divisibleby:2 %}
+              <div class="question-container">
+            {% else %}
+              <div class="question-container grey-question-container">
+            {% endif %}
+              {{ qa.question }}
+              <img class="question-toggle toggle-off" src="{% static "img/up-icon-24px.png" %}"/>
+            </div>
+            <div class="answer-container">
+              {{ qa.answer }}
+            </div>
+          </li>
+        {% endfor %}
+      {% endfor %}
+
+    </ul>
+
+  </div>
+</div>
+
+<script>
+
+  $(".question-container").click(function(){
+
+    var item = $(this).parent();
+    var on = item.hasClass("toggle-on");
+
+    if(on){
+      item.removeClass("toggle-on");
+      item.addClass("toggle-off");
+    }else{
+      item.removeClass("toggle-off");
+      item.addClass("toggle-on");
+    }
+  });
+
+  </script>
+
+{% endblock %}

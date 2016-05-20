@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container home-intro">
+  <div class="centered row home-hero-phrase">
+    Stream videos from your PC to your Android TV.
+  </div>
+  <div class="row">
+    <div class="home-iconography col-md-2 col-md-offset-2 col-sm-4">
+      <img src="{% static "img/windows-pc-icon.png" %}"/>
+    </div>
+    <div class="home-iconography col-md-2 col-md-offset-1 col-sm-4">
+      <img src="{% static "img/stream-temp-icon.png" %}"/>
+    </div>
+    <div class="home-iconography col-md-2 col-md-offset-1 col-sm-4">
+      <img src="{% static "img/android-tv-icon.png" %}"/>
+    </div>
+  </div>
+</div>
+
+<div class="standard-content-block blue-body">
+  <div class="container">
+    <div class="row use-case-row">
+      <div class="col-md-6 clearfix">
+        <div class="home-use-case clearfix">
+          <div class="home-iconography-small">
+             <img src="{% static "img/video-library-white.png" %}"/>
+          </div>
+          <div class="icon-blurb">
+          Never manually transfer a video file from your computer to your Android TV again
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 clearfix">
+        <div class="home-use-case clearfix">
+          <div class="home-iconography-small">
+             <img src="{% static "img/no-wifi-white.png" %}"/>
+          </div>
+          <div class="icon-blurb">
+            A slow internet connection will never stop you from streaming your own videos
+          </div>
+        </div>
+      </div>
+      <!--<div class="col-md-4 clearfix">
+        <div class="home-use-case clearfix">
+          <div class="home-iconography-small">  placeholder </div>
+          <div class="icon-blurb">
+            Its always on so you can set it and forget it
+          </div>
+        </div>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<div id="download" class="white-content standard-content-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 clearfix download-instructions">
+        Install both the Windows PC client and Android TV app
+      </div>
+      <div class="clearfix">
+        <div class="col-md-6 download-block">
+          <div class="title hidden-sm">
+            Download Windows Client
+          </div>
+          <a class="windows" href="{% static "app/HomeTheaterSetup.msi" %}"> <img src="{% static "img/windows-logo.png" %}"/> Download here </a>
+        </div>
+        <div class="col-md-6 download-block">
+          <div class="title hidden-sm">
+            Install Android TV App
+          </div>
+
+          <a href="https://play.google.com" target="_blank" class="play-store"> <img src="{% static "img/en-play-badge.png" %}"/> </a>
+        </div>
+        </div>
+        <!--<div class="get-started-blurb">
+          <a href="/get-started"> 
+          <button class="btn btn-grey"> Read the quick start guide </button>
+          </a>
+        </div>-->
+      </div>
+    </div>
+  </div>
+  
+ <div class="standard-content-block blue-body">
+  <div class="container">
+    <div class="row">
+      
+      <h1 class="section-header">Get Started</h1>
+      
+      <ul class="get-started-list">
+        <li>
+        1. Download and install the Windows app
+        </li>
+        <li>
+        2. Add your folders with videos you want to watch on your Android TV
+        </li>
+        <li>
+        3. Install the Android TV app from Google Play
+        </li>
+        <li>
+        4. Enjoy your videos
+        </li>
+        
+        </ul>
+      
+     </div>
+    </div>
+   </div>
+   
+   
+  <!--<div id="faq" class="white-content standard-content-block">
+  <div class="container">
+    <div class="row">
+      
+      <h1 class="section-header">FAQ</h1>
+
+      <ul class="faq-list">
+
+        {% for section in faq %} 
+          
+
+          {% for qa in section.items %}
+            <li class="faq-list-item">
+              {% if forloop.counter|divisibleby:2 %}
+                <div class="question-container">
+              {% else %}
+                <div class="question-container grey-question-container">
+              {% endif %}
+                {{ qa.question }}
+                <img class="question-toggle toggle-off" src="{% static "img/up-icon-24px.png" %}"/>
+              </div>
+              <div class="answer-container">
+                {{ qa.answer }}
+              </div>
+            </li>
+          {% endfor %}
+        {% endfor %}
+
+      </ul>
+
+    </div>
+    </div>
+  </div>
+  
+</div> -->
+
+
+<script>
+
+  $(".question-container").click(function(){
+
+    var item = $(this).parent();
+    var on = item.hasClass("toggle-on");
+
+    if(on){
+      item.removeClass("toggle-on");
+      item.addClass("toggle-off");
+    }else{
+      item.removeClass("toggle-off");
+      item.addClass("toggle-on");
+    }
+  });
+
+  </script>
+{% endblock %}
