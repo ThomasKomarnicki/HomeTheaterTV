@@ -8,6 +8,8 @@ import com.doglandia.hometheater.event.ResourceServerConnected;
 import com.doglandia.hometheater.model.Resource;
 import com.doglandia.hometheater.model.ResourcesResponse;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
@@ -46,6 +48,7 @@ public class ResourceServer implements ServerInterface, ClientDiscoverer.OnHostF
 
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         clientBuilder.addInterceptor(new HttpLoggingInterceptor());
+        clientBuilder.connectTimeout(8, TimeUnit.SECONDS);
 
 
         Retrofit.Builder builder = new Retrofit.Builder();

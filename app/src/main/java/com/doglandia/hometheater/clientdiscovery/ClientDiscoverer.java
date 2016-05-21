@@ -71,12 +71,17 @@ public class ClientDiscoverer {
                                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                                 prefs.edit().putString(LAST_DISCOVERED_HOST, host).commit();
                                 listener.onHostFound(host);
+                            }else{
+                                Log.d(TAG, "scanning subnet because host is null");
+                                startSubNetScan();
                             }
                         }
 
                     }, new Action1<Throwable>() {
                         @Override
                         public void call(Throwable throwable) {
+                            throwable.printStackTrace();
+                            Log.d(TAG, "scanning subnet because last discovered host failed");
                             startSubNetScan();
                             // notify that we failed to reconnect on last discovered host, try to rediscover host
 //                HomeTheaterApplication.getBus().post(new ResourceServerConnectFailed());
@@ -150,7 +155,7 @@ public class ClientDiscoverer {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
+                        throwable.printStackTrace();
                     }
                 }, new Action0() {
                     @Override
@@ -213,6 +218,7 @@ public class ClientDiscoverer {
                         subscriber.onError(new Throwable("could not connect to host"));
                     }
                 } catch (IOException e) {
+                    subscriber.onError(new Throwable("could not connect to host"));
                     e.printStackTrace();
                 }
             }

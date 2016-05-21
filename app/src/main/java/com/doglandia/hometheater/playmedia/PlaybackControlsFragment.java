@@ -26,6 +26,12 @@ import com.doglandia.hometheater.videolib.VideoPresenter;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by tdk10 on 2/26/2016.
  */
@@ -41,33 +47,6 @@ public class PlaybackControlsFragment extends PlaybackOverlayFragment {
     private MediaPlaybackListener mediaPlaybackListener;
 
     private MediaPlayerFragment mediaPlayerFragment;
-
-    private Timer playbackTimer;
-    private TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-            final int playbackPosition = mediaPlayerFragment.getCurrentPlayPosition();
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    controlsRow.setCurrentTime(playbackPosition);
-                }
-            });
-        }
-    };
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        playbackTimer.cancel();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        playbackTimer = new Timer();
-        playbackTimer.schedule(timerTask, 1000, 1000);
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -161,6 +140,36 @@ public class PlaybackControlsFragment extends PlaybackOverlayFragment {
 
             }
         });
+
+        Observable.create(new Observable.OnSubscribe<Object>() {
+            @Override
+            public void call(Subscriber<? super Object> subscriber) {
+                try {
+                    Thread.sleep(1000);
+                    if(isResumed()) {
+                        subscriber.onNext(null);
+                        subscriber.onCompleted();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).repeat().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        if (mediaPlayerFragment != null && getActivity() != null) {
+                            final int playbackPosition = mediaPlayerFragment.getCurrentPlayPosition();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    controlsRow.setCurrentTime(playbackPosition);
+                                }
+                            });
+                        }
+                    }
+                });
     }
 
     private ArrayObjectAdapter createOtherVideosRow(ResourceGroup resourceGroup){
