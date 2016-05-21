@@ -3,7 +3,6 @@ package com.doglandia.hometheater.clientdiscovery;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.text.format.Formatter;
 import android.util.Log;
@@ -53,7 +52,7 @@ public class ClientDiscoverer {
 
     private boolean found = false;
 
-    public ClientDiscoverer(Context context, OnHostFoundListener onHostFoundListener){
+    public ClientDiscoverer(final Context context, OnHostFoundListener onHostFoundListener){
         this.context = context;
         this.listener = onHostFoundListener;
 
@@ -63,8 +62,26 @@ public class ClientDiscoverer {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if(prefs.contains(LAST_DISCOVERED_HOST)){
-            HostCheckTask hostCheckTask = new HostCheckTask();
-            hostCheckTask.execute(prefs.getString(LAST_DISCOVERED_HOST,""));
+            hostAcceptsObservable(prefs.getString(LAST_DISCOVERED_HOST,""))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String host) {
+                            if (host != null) {
+                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                                prefs.edit().putString(LAST_DISCOVERED_HOST, host).commit();
+                                listener.onHostFound(host);
+                            }
+                        }
+
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            startSubNetScan();
+                            // notify that we failed to reconnect on last discovered host, try to rediscover host
+//                HomeTheaterApplication.getBus().post(new ResourceServerConnectFailed());
+                        }
+                    });
         }else {
             startSubNetScan();
         }
@@ -122,23 +139,22 @@ public class ClientDiscoverer {
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String host) {
+
                         found = true;
 //                        cancel = true;
                         Log.d(TAG, "On Next " + host);
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                         prefs.edit().putString(LAST_DISCOVERED_HOST, host).commit();
                         listener.onHostFound(host);
-
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        throwable.printStackTrace();
+
                     }
                 }, new Action0() {
                     @Override
                     public void call() {
-                        // on complete, error?
                         if(!found) {
                             listener.onNoHostFound();
                             HomeTheaterApplication.getBus().post(new ResourceServerConnectFailed());
@@ -186,35 +202,20 @@ public class ClientDiscoverer {
         return null;
     }
 
-    // checks to make sure client still exists, if not start scanning the subnet
-    class HostCheckTask extends AsyncTask<String, Integer, String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                if(hostAcceptsRequest(params[0])){
-                    return params[0];
+    private Observable<String> hostAcceptsObservable(final String host){
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                try {
+                    if(hostAcceptsRequest(host)){
+                        subscriber.onNext(host);
+                    }else{
+                        subscriber.onError(new Throwable("could not connect to host"));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String host) {
-            super.onPostExecute(host);
-            if(host != null){
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                prefs.edit().putString(LAST_DISCOVERED_HOST,host).commit();
-                listener.onHostFound(host);
-            }else{
-                // notify that we failed to reconnect on last discovered host, try to rediscover host
-//                HomeTheaterApplication.getBus().post(new ResourceServerConnectFailed());
-                startSubNetScan();
-            }
-        }
+        }).subscribeOn(Schedulers.io());
     }
-
 }

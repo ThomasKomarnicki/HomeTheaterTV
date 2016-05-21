@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="@style/Theme.Leanback">
         <item name="android:background">@color/primary_background</item>
         <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorAccent">@color/accent_color</item>
 
     </style>
 

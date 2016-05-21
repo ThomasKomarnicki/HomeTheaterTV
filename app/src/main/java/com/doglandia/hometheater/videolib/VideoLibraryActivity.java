@@ -63,6 +63,7 @@ public class VideoLibraryActivity extends Activity {
             @Override
             public void call(Throwable throwable) {
                 throwable.printStackTrace();
+                onResourceServerReconnectFailed(new ResourceServerConnectFailed());
             }
         });
     }
