@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/progressBar"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp" />
+                android:layout_marginTop="40dp"
+                android:progressTint="@color/accent_color" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -71,12 +72,14 @@
                 android:layout_gravity="center" >
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Try Again"
                     android:id="@+id/try_again"
                     android:focusableInTouchMode="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:textColor="@color/accent_color" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

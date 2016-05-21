@@ -64,7 +64,8 @@
                 android:id="@+id/go_back"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                style="?android:attr/buttonBarButtonStyle"/>
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@color/accent_color" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -73,7 +74,8 @@
                 android:id="@+id/try_again"
                 android:focusableInTouchMode="true"
                 android:focusable="true"
-                style="?android:attr/buttonBarButtonStyle"/>
+                style="?android:attr/buttonBarButtonStyle"
+                android:textColor="@color/accent_color" />
 
         </LinearLayout>
 
